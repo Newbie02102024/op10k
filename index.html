@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation 10K — Chris's 12-Month Cyber Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c121d;
+    --bg-2:#111a28;
+    --panel:#14202f;
+    --panel-2:#182838;
+    --line:#243349;
+    --line-soft:#1c2a3c;
+    --ink:#e9eef4;
+    --ink-soft:#93a2b6;
+    --ink-faint:#61728a;
+    --gold:#f4b63f;
+    --gold-dim:#8a6e28;
+    --teal:#45cfc2;
+    --teal-dim:#2a6b66;
+    --rose:#e8776b;
+    --violet:#9b8cff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1100px 600px at 78% -8%, rgba(244,182,63,.07), transparent 60%),
+      radial-gradient(900px 500px at 10% 4%, rgba(69,207,194,.06), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding:0 20px 90px;
+  }
+  .wrap{max-width:1040px;margin:0 auto}
+  .mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+  h1,h2,h3,.disp{font-family:"Space Grotesk",sans-serif;letter-spacing:-.01em}
+
+  /* ---------- HERO ---------- */
+  header{padding:64px 0 34px;position:relative}
+  .kicker{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;
+    color:var(--teal);border:1px solid var(--teal-dim);
+    padding:6px 12px;border-radius:100px;background:rgba(69,207,194,.06);
+  }
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}
+  h1{font-size:clamp(34px,6vw,58px);font-weight:700;line-height:1.02;margin:20px 0 14px}
+  h1 .glow{color:var(--gold);text-shadow:0 0 34px rgba(244,182,63,.35)}
+  .lede{color:var(--ink-soft);max-width:60ch;font-size:16.5px}
+
+  .hero-grid{display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center;margin-top:30px}
+  .ring-card{
+    background:linear-gradient(160deg,var(--panel),var(--bg-2));
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;text-align:center;
+  }
+  .ring-wrap{position:relative;width:170px;height:170px;margin:2px auto 10px}
+  .ring-wrap svg{transform:rotate(-90deg)}
+  .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring-pct{font-family:"Space Grotesk";font-size:40px;font-weight:700;line-height:1;color:var(--gold)}
+  .ring-lbl{font-size:11px;color:var(--ink-faint);letter-spacing:.08em;font-family:"IBM Plex Mono"}
+  .ring-sub{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+  .ring-sub b{color:var(--ink);font-family:"IBM Plex Mono"}
+
+  .stat-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .stat{
+    flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line-soft);
+    border-radius:12px;padding:15px 16px;
+  }
+  .stat .n{font-family:"Space Grotesk";font-size:24px;font-weight:700;color:var(--ink)}
+  .stat .n .u{font-size:13px;color:var(--ink-soft);font-weight:500}
+  .stat .k{font-size:12px;color:var(--ink-faint);margin-top:2px;letter-spacing:.03em}
+  .stat.gold .n{color:var(--gold)} .stat.teal .n{color:var(--teal)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{margin-top:56px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+  .sec-idx{font-family:"IBM Plex Mono";font-size:13px;color:var(--gold-dim)}
+  .sec-head h2{font-size:26px;font-weight:600}
+  .sec-head p{color:var(--ink-soft);font-size:14.5px;flex-basis:100%;margin-top:-6px}
+
+  /* ---------- ROADMAP ---------- */
+  .roadmap{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 22px;overflow-x:auto;
+  }
+  .track{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;min-width:720px;position:relative}
+  .track::before{content:"";position:absolute;top:34px;left:6%;right:6%;height:2px;
+    background:linear-gradient(90deg,var(--teal),var(--gold));opacity:.35}
+  .qcol{position:relative}
+  .qnode{width:20px;height:20px;border-radius:50%;background:var(--bg);border:3px solid var(--teal);
+    margin:24px auto 16px;position:relative;z-index:2}
+  .qcol:nth-child(2) .qnode{border-color:#6fc9b6}
+  .qcol:nth-child(3) .qnode{border-color:#c0b06a}
+  .qcol:nth-child(4) .qnode{border-color:var(--gold);box-shadow:0 0 12px rgba(244,182,63,.5)}
+  .qtag{font-family:"IBM Plex Mono";font-size:11px;color:var(--ink-faint);text-align:center;margin-bottom:6px}
+  .qttl{font-family:"Space Grotesk";font-weight:600;font-size:15px;text-align:center;margin-bottom:12px;min-height:38px}
+  .qcol ul{list-style:none;font-size:12.5px;color:var(--ink-soft)}
+  .qcol li{padding:5px 0 5px 16px;position:relative;border-top:1px solid var(--line-soft)}
+  .qcol li::before{content:"▸";position:absolute;left:0;color:var(--gold);font-size:11px}
+
+  /* ---------- QUARTER TABS ---------- */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .tab{
+    font-family:"Space Grotesk";font-weight:600;font-size:14px;
+    background:var(--panel);border:1px solid var(--line);color:var(--ink-soft);
+    padding:11px 16px;border-radius:10px;cursor:pointer;transition:.18s;
+  }
+  .tab .tspan{font-family:"IBM Plex Mono";font-size:11px;color:var(--ink-faint);display:block}
+  .tab[aria-selected="true"]{border-color:var(--gold);color:var(--ink);background:var(--panel-2)}
+  .tab[aria-selected="true"] .tspan{color:var(--gold)}
+  .tab:hover{border-color:var(--line);color:var(--ink)}
+
+  .qpanel{display:none;animation:fade .3s ease}
+  .qpanel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .qmeta{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px;color:var(--ink-soft);font-size:13.5px}
+  .qmeta span{display:inline-flex;gap:7px;align-items:center}
+  .qmeta b{color:var(--teal);font-family:"IBM Plex Mono"}
+
+  .lane{margin-bottom:18px}
+  .lane-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .lane-h .tagpill{
+    font-family:"IBM Plex Mono";font-size:10.5px;padding:3px 9px;border-radius:5px;letter-spacing:.04em;
+  }
+  .tp-work{background:rgba(155,140,255,.14);color:#c3b8ff;border:1px solid rgba(155,140,255,.3)}
+  .tp-hack{background:rgba(232,119,107,.13);color:#f0958b;border:1px solid rgba(232,119,107,.3)}
+  .tp-study{background:rgba(69,207,194,.13);color:var(--teal);border:1px solid var(--teal-dim)}
+  .tp-ai{background:rgba(244,182,63,.13);color:var(--gold);border:1px solid var(--gold-dim)}
+  .lane-h h4{font-family:"Space Grotesk";font-size:14.5px;font-weight:600;color:var(--ink)}
+
+  .task{
+    display:flex;gap:12px;align-items:flex-start;padding:11px 14px;
+    background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;margin-bottom:7px;
+    cursor:pointer;transition:.15s;
+  }
+  .task:hover{border-color:var(--line);background:var(--panel-2)}
+  .task input{appearance:none;width:19px;height:19px;border:2px solid var(--line);border-radius:5px;
+    margin-top:2px;flex-shrink:0;cursor:pointer;transition:.15s;position:relative}
+  .task input:checked{background:var(--gold);border-color:var(--gold)}
+  .task input:checked::after{content:"✓";position:absolute;color:#1a1300;font-size:13px;font-weight:800;
+    left:2.5px;top:-1px}
+  .task .tbody{font-size:13.8px;color:var(--ink)}
+  .task .tbody small{display:block;color:var(--ink-faint);font-size:12px;margin-top:1px}
+  .task.done .tbody{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--gold-dim)}
+  .qbar{height:6px;background:var(--line-soft);border-radius:6px;overflow:hidden;margin-bottom:20px}
+  .qbar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));width:0;transition:.4s}
+
+  /* ---------- TABLES ---------- */
+  .tblwrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--line-soft)}
+  th{background:var(--panel-2);font-family:"Space Grotesk";font-weight:600;font-size:12.5px;
+    color:var(--ink-soft);letter-spacing:.02em}
+  td{color:var(--ink-soft)}
+  tr:last-child td{border-bottom:none}
+  td b{color:var(--ink)}
+  .pill{font-family:"IBM Plex Mono";font-size:11px;padding:3px 8px;border-radius:5px;white-space:nowrap}
+  .pill.free{background:rgba(69,207,194,.13);color:var(--teal)}
+  .pill.paid{background:rgba(244,182,63,.13);color:var(--gold)}
+  .cost{font-family:"IBM Plex Mono";color:var(--ink);white-space:nowrap}
+  tfoot td{background:var(--panel-2);font-family:"Space Grotesk";font-weight:600;color:var(--ink);border-top:2px solid var(--line)}
+  tfoot .cost{color:var(--gold);font-size:15px}
+
+  /* ---------- SKILLS ---------- */
+  .skillgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  .skillcard{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:16px}
+  .skillcard h4{font-family:"Space Grotesk";font-size:14px;font-weight:600;margin-bottom:9px;display:flex;gap:8px;align-items:center}
+  .skillcard h4 .ic{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:12px;flex-shrink:0}
+  .skillcard ul{list-style:none;font-size:12.8px;color:var(--ink-soft)}
+  .skillcard li{padding:3px 0 3px 15px;position:relative}
+  .skillcard li::before{content:"—";position:absolute;left:0;color:var(--gold-dim)}
+
+  /* ---------- CALLOUT ---------- */
+  .callout{
+    background:linear-gradient(150deg,var(--panel-2),var(--panel));
+    border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:12px;padding:18px 20px;margin-top:14px;
+  }
+  .callout.teal{border-left-color:var(--teal)}
+  .callout.rose{border-left-color:var(--rose)}
+  .callout h4{font-family:"Space Grotesk";font-size:15px;margin-bottom:7px;color:var(--ink)}
+  .callout p{font-size:13.8px;color:var(--ink-soft)}
+  .callout p+p{margin-top:8px}
+  .callout b{color:var(--ink)}
+
+  /* ---------- MASTERS ---------- */
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mcard{background:var(--panel);border:1px solid var(--line-soft);border-radius:12px;padding:17px}
+  .mcard h4{font-family:"Space Grotesk";font-size:14.5px;margin-bottom:8px;color:var(--ink)}
+  .mcard p{font-size:13px;color:var(--ink-soft)}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line-soft);
+    color:var(--ink-faint);font-size:12.5px;text-align:center}
+  .resetbtn{background:none;border:1px solid var(--line);color:var(--ink-faint);
+    font-family:"IBM Plex Mono";font-size:11px;padding:6px 12px;border-radius:7px;cursor:pointer;margin-top:12px}
+  .resetbtn:hover{border-color:var(--rose);color:var(--rose)}
+  .syncbar{display:inline-flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);
+    border-radius:100px;padding:7px 15px;margin-bottom:16px;font-family:"IBM Plex Mono";font-size:12px;color:var(--ink-soft)}
+  .syncdot{width:8px;height:8px;border-radius:50%;background:var(--ink-faint);flex-shrink:0;transition:.3s}
+  .syncdot.ok{background:var(--teal);box-shadow:0 0 9px var(--teal)}
+  .syncdot.local{background:var(--gold)}
+  .syncbtn{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);
+    font-family:"IBM Plex Mono";font-size:11px;padding:5px 11px;border-radius:100px;cursor:pointer;transition:.15s}
+  .syncbtn:hover{border-color:var(--teal);color:var(--teal)}
+
+  @media(max-width:780px){
+    .hero-grid{grid-template-columns:1fr}
+    .ring-card{max-width:280px}
+    .mgrid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header>
+    <span class="kicker"><span class="dot"></span>ACTIVE MISSION · 12 MONTHS · RAK → DUBAI</span>
+    <h1>Operation <span class="glow">10K</span></h1>
+    <p class="lede">One year to turn a Day-1 junior title into a <b style="color:var(--ink)">10,000+&nbsp;AED offer</b> and a master's application where certs, real skills, and a portfolio outrank a 2.0 GPA. Practical over theory. Check things off as you go — your progress saves automatically.</p>
+
+    <div class="hero-grid">
+      <div class="stat-row">
+        <div class="stat gold"><div class="n">10k+ <span class="u">AED</span></div><div class="k">target monthly salary</div></div>
+        <div class="stat teal"><div class="n">4<span class="u"> new certs</span></div><div class="k">on top of ISC2 CC + Cisco</div></div>
+        <div class="stat"><div class="n">~5.4k <span class="u">AED</span></div><div class="k">total 12-month spend</div></div>
+        <div class="stat"><div class="n">6</div><div class="k">portfolio pieces built</div></div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-wrap">
+          <svg width="170" height="170" viewBox="0 0 170 170">
+            <circle cx="85" cy="85" r="74" fill="none" stroke="#1c2a3c" stroke-width="13"/>
+            <circle id="ring" cx="85" cy="85" r="74" fill="none" stroke="url(#g)" stroke-width="13"
+              stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="465"/>
+            <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#45cfc2"/><stop offset="1" stop-color="#f4b63f"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-pct" id="pct">0%</div>
+            <div class="ring-lbl">COMPLETE</div>
+          </div>
+        </div>
+        <div class="ring-sub"><b id="doneN">0</b> / <b id="totN">0</b> tasks done</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="sec-head">
+      <span class="sec-idx">01</span><h2>The roadmap at a glance</h2>
+      <p>Four quarters. Each builds on the last — foundation, then offense, then specialise, then package &amp; launch.</p>
+    </div>
+    <div class="roadmap">
+      <div class="track">
+        <div class="qcol">
+          <div class="qtag">MONTHS 1–3</div><div class="qnode"></div>
+          <div class="qttl">Lock the foundation + first blood</div>
+          <ul><li>Pass Security+</li><li>Master Real Secure's stack</li><li>Linux + recon basics</li><li>Start GitHub</li></ul>
+        </div>
+        <div class="qcol">
+          <div class="qtag">MONTHS 4–6</div><div class="qnode"></div>
+          <div class="qttl">Offense for real + open the AI lane</div>
+          <ul><li>PortSwigger web labs</li><li>eJPT cert (practical)</li><li>OWASP LLM Top 10</li><li>Privesc + reporting</li></ul>
+        </div>
+        <div class="qcol">
+          <div class="qtag">MONTHS 7–9</div><div class="qnode"></div>
+          <div class="qttl">Specialise + build the proof</div>
+          <ul><li>CPTS / AZ-500 track</li><li>AI-security project</li><li>Pentest report portfolio</li><li>Start job + uni prep</li></ul>
+        </div>
+        <div class="qcol">
+          <div class="qtag">MONTHS 10–12</div><div class="qnode"></div>
+          <div class="qttl">Package, certify, launch</div>
+          <ul><li>Land CPTS exam</li><li>Apply 10k+ jobs</li><li>Submit master's apps</li><li>Negotiate the jump</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section id="tracker">
+    <div class="sec-head">
+      <span class="sec-idx">02</span><h2>Quarter-by-quarter tracker</h2>
+      <p>Lanes are colour-coded: <span style="color:var(--violet)">work</span> · <span style="color:var(--teal)">study</span> · <span style="color:var(--rose)">hacking</span> · <span style="color:var(--gold)">AI security</span>. Do the work lane on the job; do study/hacking on the commute + 45 min/evening.</p>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-q="0">Q1 <span class="tspan">MONTHS 1–3</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-q="1">Q2 <span class="tspan">MONTHS 4–6</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-q="2">Q3 <span class="tspan">MONTHS 7–9</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-q="3">Q4 <span class="tspan">MONTHS 10–12</span></button>
+    </div>
+
+    <div id="panels"></div>
+  </section>
+
+  <!-- CERTS -->
+  <section id="certs">
+    <div class="sec-head">
+      <span class="sec-idx">03</span><h2>Certifications: the order that matters</h2>
+      <p>Sequenced so each one is either job-market currency, proof of hands-on skill, or a master's-application signal — ideally all three.</p>
+    </div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Cert</th><th>When</th><th>Why it's on the list</th><th>Type</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td><b>CompTIA Security+</b></td><td>Month 2–3</td><td>Baseline employers filter for; already in progress — just finish it</td><td>Theory + scenario</td><td class="cost">~1,500</td></tr>
+          <tr><td><b>eJPT</b> (INE)</td><td>Month 5–6</td><td>Fully practical exam — proves you can actually pentest, not just talk about it</td><td>Hands-on</td><td class="cost">~915</td></tr>
+          <tr><td><b>HTB CPTS</b></td><td>Month 9–11</td><td>Serious 100% hands-on pentest cert + a real report deliverable. This is your headline credential</td><td>Hands-on</td><td class="cost">~1,800</td></tr>
+          <tr><td><b>AZ-500</b> <span style="color:var(--ink-faint)">(swap-in)</span></td><td>alt to CPTS</td><td>Pick this instead if you lean cloud/blue — UAE enterprise runs on Microsoft</td><td>Cloud security</td><td class="cost">~600</td></tr>
+          <tr><td><b>OSCP</b> <span style="color:var(--ink-faint)">(year 2)</span></td><td>Start prep M11</td><td>The gold standard. Too much to also finish this year — begin prep, sit it later</td><td>Hands-on</td><td class="cost">~6,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- HACKING LABS -->
+  <section id="labs">
+    <div class="sec-head">
+      <span class="sec-idx">04</span><h2>Where you actually learn to hack</h2>
+      <p>Your uni skipped this — so here's the real practical stack. Everything here is legal: you're breaking machines you own or platforms that exist to be broken. That's the only kind of "hacking" that builds a career (and doesn't get you arrested for the Instagram thing 😉).</p>
+    </div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Platform</th><th>What it teaches you</th><th>Best for</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr><td><b>PortSwigger Web Security Academy</b></td><td>How real web/account attacks work — SQLi, XSS, auth bypass, account takeover, brute-forcing — in guided labs</td><td>The "how do accounts actually get hacked" answer</td><td><span class="pill free">FREE</span></td></tr>
+          <tr><td><b>TryHackMe</b></td><td>Structured beginner→intermediate paths (Jr Penetration Tester, Offensive Pentesting)</td><td>Daily practice on the commute</td><td><span class="pill paid">~55/mo</span></td></tr>
+          <tr><td><b>HackTheBox + HTB Academy</b></td><td>Realistic machines + the CPTS curriculum; enumeration, exploitation, privesc</td><td>Levelling up to job-ready</td><td><span class="pill paid">~55/mo</span></td></tr>
+          <tr><td><b>OverTheWire (Bandit)</b></td><td>Linux command line + shell muscle memory</td><td>Week 1 warm-up</td><td><span class="pill free">FREE</span></td></tr>
+          <tr><td><b>VulnHub + your home lab</b></td><td>Download vulnerable VMs, break them on your own laptop (VirtualBox + Kali)</td><td>Full attack-chain practice</td><td><span class="pill free">FREE</span></td></tr>
+          <tr><td><b>picoCTF / CTFtime events</b></td><td>Puzzle-style challenges → great GitHub write-ups</td><td>Portfolio material</td><td><span class="pill free">FREE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout rose">
+      <h4>The one rule that keeps this a career and not a crime</h4>
+      <p>Only ever touch systems you own or are explicitly authorised to test. Everything above gives you the exact same skills a real attacker has — enumeration, exploitation, privilege escalation, persistence — legally. When your resume says "I can pentest," the eJPT/CPTS and your lab write-ups are the proof. A hacked Instagram account is not proof; it's a case file with your name on it.</p>
+    </div>
+  </section>
+
+  <!-- COST LEDGER -->
+  <section id="cost">
+    <div class="sec-head">
+      <span class="sec-idx">05</span><h2>What it costs — the full ledger</h2>
+      <p>Roughly one month's current salary, spread across a year. Budget it monthly, not in one hit. All figures are estimates in AED — confirm live prices before you book any exam.</p>
+    </div>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Item</th><th>Category</th><th>Cost (AED)</th></tr></thead>
+        <tbody>
+          <tr><td>CompTIA Security+ exam</td><td>Certification</td><td class="cost">1,500</td></tr>
+          <tr><td>eJPT exam (INE)</td><td>Certification</td><td class="cost">915</td></tr>
+          <tr><td>HTB CPTS bundle + exam</td><td>Certification</td><td class="cost">1,800</td></tr>
+          <tr><td>TryHackMe / HTB subs (~6 active months)</td><td>Practice labs</td><td class="cost">660</td></tr>
+          <tr><td>Practice exams + study material</td><td>Study</td><td class="cost">500</td></tr>
+          <tr><td>PortSwigger, OverTheWire, VulnHub, picoCTF</td><td>Practice labs</td><td class="cost">0</td></tr>
+          <tr><td>OWASP LLM docs, DeepLearning.AI, Google Gen AI</td><td>AI security</td><td class="cost">0</td></tr>
+          <tr><td>Home lab (VirtualBox + Kali + free VMs)</td><td>Setup</td><td class="cost">0</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">TOTAL — core 12-month path</td><td class="cost">~5,375</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="callout teal">
+      <h4>Money-saving reality</h4>
+      <p>Swap CPTS for AZ-500 and you drop the total to ~<b>4,175 AED</b>. Ask Real Secure if they'll <b>sponsor a cert</b> — MSPs often reimburse exams that make staff more billable, and Security+ or AZ-500 is an easy "yes." Never book an exam until you're consistently passing practice tests; a retake is 500–1,500 AED of avoidable pain.</p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head">
+      <span class="sec-idx">06</span><h2>What you'll actually know by month 12</h2>
+      <p>This is the answer to "what will I know by the end" — the concrete, demonstrable skill set you're building.</p>
+    </div>
+    <div class="skillgrid">
+      <div class="skillcard"><h4><span class="ic" style="background:rgba(232,119,107,.15);color:var(--rose)">⚔</span>Offensive</h4>
+        <ul><li>Web app exploitation (SQLi, XSS, auth bypass)</li><li>Network enumeration &amp; scanning</li><li>Privilege escalation (Linux &amp; Windows)</li><li>Account-takeover mechanics</li><li>Writing a real pentest report</li></ul></div>
+      <div class="skillcard"><h4><span class="ic" style="background:rgba(69,207,194,.15);color:var(--teal)">🛡</span>Defensive / Blue</h4>
+        <ul><li>EDR policy config &amp; alert triage</li><li>Firewall management (Fortinet/Cisco)</li><li>Vulnerability scanning (Nessus/Qualys)</li><li>Email security: SPF, DKIM, DMARC</li><li>Reading &amp; remediating VAPT findings</li></ul></div>
+      <div class="skillcard"><h4><span class="ic" style="background:rgba(244,182,63,.15);color:var(--gold)">🤖</span>AI security</h4>
+        <ul><li>OWASP LLM Top 10 &amp; prompt injection</li><li>Guardrails (NeMo / Llama Guard)</li><li>Data-leakage risks in LLM use</li><li>Built a prompt-screening tool</li><li>Bridged infosec + your Flyrank AI work</li></ul></div>
+      <div class="skillcard"><h4><span class="ic" style="background:rgba(155,140,255,.15);color:var(--violet)">⚙</span>Engineering</h4>
+        <ul><li>Python scripting &amp; automation</li><li>Linux CLI fluency</li><li>IAM / MFA / PAM basics</li><li>Cloud security (Azure) fundamentals</li><li>GCC compliance: ISO 27001, DFSA</li></ul></div>
+      <div class="skillcard"><h4><span class="ic" style="background:rgba(244,182,63,.15);color:var(--gold)">🎓</span>Credentials</h4>
+        <ul><li>Security+ · eJPT · CPTS (or AZ-500)</li><li>+ existing ISC2 CC &amp; Cisco</li><li>OSCP prep underway</li><li>Public GitHub portfolio</li><li>1 yr "Junior Cyber Engineer" title</li></ul></div>
+      <div class="skillcard"><h4><span class="ic" style="background:rgba(69,207,194,.15);color:var(--teal)">📊</span>Career assets</h4>
+        <ul><li>Metrics-driven resume</li><li>3–5 CTF/box write-ups</li><li>1 full pentest report</li><li>1 AI-security capstone repo</li><li>Master's SOP + shortlist</li></ul></div>
+    </div>
+  </section>
+
+  <!-- MASTERS -->
+  <section id="masters">
+    <div class="sec-head">
+      <span class="sec-idx">07</span><h2>Turning a 2.0 GPA into a master's admit</h2>
+      <p>Straight talk: a 2.0 won't disappear, and some top programs have hard GPA floors you can't argue past. But plenty of good programs weight relevant experience — and that's where your year does the work.</p>
+    </div>
+    <div class="mgrid">
+      <div class="mcard"><h4>Target the right program type</h4><p>Prioritise programs that explicitly accept relevant work experience in lieu of GPA — common in the UK, Australia, and many UAE-based master's. Filter for "work experience considered" in admissions criteria rather than chasing pure ranking.</p></div>
+      <div class="mcard"><h4>Let certs carry the signal</h4><p>Security+, eJPT and CPTS are objective, external proof of competence that admissions committees read as "this person can do the work" — exactly the doubt a low GPA raises.</p></div>
+      <div class="mcard"><h4>Write the SOP around the arc</h4><p>Your story writes itself: bad-teaching bachelor's → self-taught practical skills → engineer title → AI-security specialisation in one year. That trajectory is more compelling than a flat 3.5.</p></div>
+      <div class="mcard"><h4>Show, don't claim</h4><p>The GitHub portfolio + pentest report + AI-security project are attachable evidence. A reference letter from Rateesh/Banat at Real Secure closes the loop.</p></div>
+    </div>
+    <div class="callout">
+      <h4>Do this in Q3, not Q4</h4>
+      <p>Email 4–5 target programs' admissions offices directly in months 7–9 and ask plainly: <i>"I have a 2.0 GPA but a year of professional cyber experience and X certifications — would my application be considered?"</i> Their answer tells you exactly where to spend your application effort, before deadlines pressure you.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div id="syncbar" class="syncbar">
+      <span class="syncdot" id="syncdot"></span>
+      <span id="syncmsg">Starting up…</span>
+      <button class="syncbtn" id="signin" hidden>Sign in with Google to sync</button>
+      <button class="syncbtn" id="signout" hidden>Sign out</button>
+    </div>
+    Estimates in AED · verify live exam prices &amp; program policies before committing
+    <br><button class="resetbtn" id="reset">RESET ALL PROGRESS</button>
+  </footer>
+
+</div>
+
+<script type="module">
+/* ============================================================
+   FIREBASE SYNC CONFIG
+   ------------------------------------------------------------
+   Leave as-is and the tracker saves locally on this device.
+   Paste your own Firebase web-app config below (Project
+   settings → Your apps → Web app → SDK config) and it will
+   sync across every device you sign into with Google.
+   Setup steps are in the chat.
+   ============================================================ */
+const firebaseConfig = {
+  apiKey:            "PASTE_API_KEY",
+  authDomain:        "PASTE_PROJECT.firebaseapp.com",
+  projectId:         "PASTE_PROJECT_ID",
+  appId:             "PASTE_APP_ID"
+};
+const SYNC_ENABLED = !firebaseConfig.apiKey.startsWith("PASTE");
+
+// ---------- PLAN DATA ----------
+const QUARTERS = [
+  { meta:{focus:"Foundation + first hacking wins", certs:"Security+", spend:"~2,160 AED"},
+    lanes:[
+      {tag:"work",cls:"tp-work",title:"On the job at Real Secure",tasks:[
+        {t:"Map the full tech stack",s:"EDR, firewalls, email/DNS filtering — write down every tool name"},
+        {t:"Tell seniors you want to shadow VAPT",s:'"Let me know how I can assist on firewall + vuln remediation"'},
+        {t:"Start a private work journal",s:"Every problem solved, tool configured, architecture learned"},
+      ]},
+      {tag:"study",cls:"tp-study",title:"Security+ final push",tasks:[
+        {t:"Watch Professor Messer's full Security+ series",s:"Free on YouTube — do it on the commute"},
+        {t:"Score 85%+ on practice exams",s:"Don't book until you're consistently there"},
+        {t:"PASS Security+",s:"Book it around month 2–3"},
+      ]},
+      {tag:"hack",cls:"tp-hack",title:"Practical hacking foundations",tasks:[
+        {t:"Build the home lab",s:"VirtualBox + Kali VM + one vulnerable VM"},
+        {t:"Finish OverTheWire Bandit",s:"Free — Linux + shell fundamentals"},
+        {t:"Start TryHackMe 'Pre Security' + 'Jr Pentester'",s:"~30 min/evening"},
+        {t:"Create the GitHub, push your first write-up",s:"Even a Bandit walkthrough counts"},
+      ]},
+    ]},
+  { meta:{focus:"Real offense + AI-security entry", certs:"eJPT", spend:"~1,830 AED"},
+    lanes:[
+      {tag:"hack",cls:"tp-hack",title:"Web + network exploitation",tasks:[
+        {t:"Work through PortSwigger Web Security Academy",s:"FREE — SQLi, XSS, auth bypass, account takeover"},
+        {t:"Complete TryHackMe 'Offensive Pentesting' path",s:"Enumeration → exploitation → privesc"},
+        {t:"Pass the eJPT exam",s:"Your first proof you can actually pentest"},
+        {t:"Publish 2 machine write-ups to GitHub",s:"Redacted, professional format"},
+      ]},
+      {tag:"ai",cls:"tp-ai",title:"Open the AI-security lane",tasks:[
+        {t:"Read the full OWASP Top 10 for LLMs",s:"FREE — the industry vuln list for AI"},
+        {t:"Do DeepLearning.AI 'AI for Everyone'",s:"Andrew Ng — zero-math intro"},
+        {t:"Note how Flyrank AI work maps to security",s:"Future SOP + resume material"},
+      ]},
+      {tag:"work",cls:"tp-work",title:"On the job",tasks:[
+        {t:"Handle a real VAPT report end-to-end",s:"Find → understand → remediate"},
+        {t:"Log your first quantified win",s:'e.g. "reduced X by Y%"'},
+      ]},
+    ]},
+  { meta:{focus:"Specialise + build the proof", certs:"CPTS / AZ-500 begins", spend:"~1,200 AED"},
+    lanes:[
+      {tag:"study",cls:"tp-study",title:"Headline credential track",tasks:[
+        {t:"Start HTB CPTS path (or AZ-500 if cloud-leaning)",s:"Pick your direction now"},
+        {t:"Grind HTB machines weekly",s:"Build toward exam readiness"},
+      ]},
+      {tag:"ai",cls:"tp-ai",title:"AI-security capstone",tasks:[
+        {t:"Build a prompt-injection screening tool in Python",s:"Checks user input before it hits an LLM"},
+        {t:"Push it to GitHub with a clean README",s:"This is your differentiator piece"},
+      ]},
+      {tag:"hack",cls:"tp-hack",title:"Portfolio",tasks:[
+        {t:"Write one full pentest report",s:"On a legal target — exec summary + findings + fixes"},
+        {t:"Reach 4–5 total GitHub write-ups",s:"CTFs, boxes, the AI tool"},
+      ]},
+      {tag:"work",cls:"tp-work",title:"Launch prep",tasks:[
+        {t:"Rewrite resume with named tools + metrics",s:'"Configured Fortinet for 10+ clients", not "managed firewalls"'},
+        {t:"Email 4–5 master's programs about GPA policy",s:"Ask directly before deadlines hit"},
+        {t:"Refresh LinkedIn, start networking",s:"Meetups + recruiters"},
+      ]},
+    ]},
+  { meta:{focus:"Package, certify, launch", certs:"CPTS exam", spend:"~185 AED"},
+    lanes:[
+      {tag:"study",cls:"tp-study",title:"Seal the credential",tasks:[
+        {t:"Pass the CPTS exam (or AZ-500)",s:"Your headline hands-on cert"},
+        {t:"Begin OSCP prep",s:"Sit the exam in year 2 — don't rush it"},
+      ]},
+      {tag:"work",cls:"tp-work",title:"Execute the jump",tasks:[
+        {t:"Apply to 10k+ AED roles",s:"Lead with the AI-security + pentest angle"},
+        {t:"Ask Banat/Rateesh for a reference",s:"He already offered"},
+        {t:"Get to a competing offer, then negotiate",s:"Leverage is everything"},
+      ]},
+      {tag:"ai",cls:"tp-ai",title:"Master's applications",tasks:[
+        {t:"Finalise SOP around your one-year arc",s:"Certs + experience + portfolio > GPA"},
+        {t:"Submit to your shortlist",s:"Attach the portfolio + reference letter"},
+      ]},
+    ]},
+];
+
+// ---------- STATE ----------
+let state = {};
+const KEY = "op10k-progress-v1";
+
+// local cache (always on, used offline + as fallback)
+function loadLocal(){
+  try{ const r = localStorage.getItem(KEY); if(r) state = JSON.parse(r); }
+  catch(e){ state = {}; }
+}
+function saveLocal(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+}
+
+// cloud sync layer (Firebase, wired lazily)
+let cloudRef=null, cloudSet=null, remoteSeeded=false;
+function setSync(status, msg){
+  const dot=document.getElementById("syncdot"), m=document.getElementById("syncmsg");
+  dot.className="syncdot"+(status==="ok"?" ok":status==="local"?" local":"");
+  m.textContent=msg;
+}
+function saveState(){
+  saveLocal();
+  if(cloudRef && cloudSet){
+    cloudSet(cloudRef,{state,updated:Date.now()},{merge:true}).catch(()=>{});
+  }
+}
+
+// ---------- BUILD PANELS ----------
+const panels = document.getElementById("panels");
+let totalTasks = 0;
+QUARTERS.forEach((q,qi)=>{
+  const p = document.createElement("div");
+  p.className = "qpanel" + (qi===0?" active":"");
+  p.dataset.q = qi;
+  let html = `<div class="qmeta">
+    <span>Focus <b>${q.meta.focus}</b></span>
+    <span>Cert <b>${q.meta.certs}</b></span>
+    <span>Spend <b>${q.meta.spend}</b></span>
+  </div>
+  <div class="qbar"><i data-qbar="${qi}"></i></div>`;
+  q.lanes.forEach((lane,li)=>{
+    html += `<div class="lane"><div class="lane-h">
+      <span class="tagpill ${lane.cls}">${lane.tag.toUpperCase()}</span>
+      <h4>${lane.title}</h4></div>`;
+    lane.tasks.forEach((task,ti)=>{
+      const id = `q${qi}-l${li}-t${ti}`;
+      totalTasks++;
+      html += `<label class="task" data-id="${id}">
+        <input type="checkbox" data-id="${id}">
+        <span class="tbody">${task.t}<small>${task.s}</small></span>
+      </label>`;
+    });
+    html += `</div>`;
+  });
+  p.innerHTML = html;
+  panels.appendChild(p);
+});
+document.getElementById("totN").textContent = totalTasks;
+
+// ---------- RENDER CHECKS ----------
+function applyState(){
+  document.querySelectorAll(".task input").forEach(cb=>{
+    const on = !!state[cb.dataset.id];
+    cb.checked = on;
+    cb.closest(".task").classList.toggle("done", on);
+  });
+  updateProgress();
+}
+function updateProgress(){
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = totalTasks ? Math.round(done/totalTasks*100) : 0;
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("doneN").textContent = done;
+  const C = 465;
+  document.getElementById("ring").style.strokeDashoffset = C - (C*pct/100);
+  // per-quarter bars
+  QUARTERS.forEach((q,qi)=>{
+    let t=0,d=0;
+    document.querySelectorAll(`.task input[data-id^="q${qi}-"]`).forEach(cb=>{t++;if(cb.checked)d++;});
+    const bar=document.querySelector(`[data-qbar="${qi}"]`);
+    if(bar) bar.style.width = (t?d/t*100:0)+"%";
+  });
+}
+
+// ---------- EVENTS ----------
+panels.addEventListener("change", e=>{
+  if(e.target.matches(".task input")){
+    state[e.target.dataset.id] = e.target.checked;
+    e.target.closest(".task").classList.toggle("done", e.target.checked);
+    updateProgress();
+    saveState();
+  }
+});
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected","false"));
+    tab.setAttribute("aria-selected","true");
+    document.querySelectorAll(".qpanel").forEach(p=>p.classList.remove("active"));
+    document.querySelector(`.qpanel[data-q="${tab.dataset.q}"]`).classList.add("active");
+  });
+});
+document.getElementById("reset").addEventListener("click", async ()=>{
+  state = {}; await saveState(); applyState();
+});
+
+// ---------- INIT + SYNC BOOTSTRAP ----------
+loadLocal();
+applyState();
+
+const btnIn=document.getElementById("signin"), btnOut=document.getElementById("signout");
+
+(async function bootSync(){
+  if(!SYNC_ENABLED){
+    setSync("local","Saved on this device only — add Firebase keys to sync everywhere");
+    return;
+  }
+  try{
+    const [{initializeApp},{getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged},
+           {getFirestore,doc,setDoc,onSnapshot}] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"),
+    ]);
+    const app=initializeApp(firebaseConfig);
+    const auth=getAuth(app);
+    const db=getFirestore(app);
+    const provider=new GoogleAuthProvider();
+    cloudSet=setDoc;
+
+    btnIn.addEventListener("click",()=>signInWithPopup(auth,provider).catch(e=>setSync("local","Sign-in cancelled — "+e.code)));
+    btnOut.addEventListener("click",()=>signOut(auth));
+
+    onAuthStateChanged(auth, user=>{
+      if(user){
+        btnIn.hidden=true; btnOut.hidden=false;
+        setSync("ok","Synced as "+ (user.email||"your account"));
+        cloudRef=doc(db,"progress",user.uid);
+        remoteSeeded=false;
+        onSnapshot(cloudRef, snap=>{
+          if(snap.exists() && snap.data().state){
+            state=snap.data().state; saveLocal(); applyState();
+          }else if(!remoteSeeded && Object.keys(state).length){
+            // first sign-in with existing local progress → push it up
+            saveState();
+          }
+          remoteSeeded=true;
+        }, ()=>setSync("local","Sync error — using this device"));
+      }else{
+        btnIn.hidden=false; btnOut.hidden=true; cloudRef=null;
+        setSync("local","Not signed in — saving on this device");
+      }
+    });
+  }catch(e){
+    setSync("local","Couldn't reach sync service — saving on this device");
+  }
+})();
+</script>
+</body>
+</html>
